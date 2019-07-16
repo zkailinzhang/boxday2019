@@ -36,6 +36,11 @@ python高级进阶
  scrapy 
  flask
 
+git进阶
+分支 
+合并
+tag
+
 tensorflow进阶
 bert
 文本分类， word2vec 分层softmax ngram
