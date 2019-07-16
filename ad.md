@@ -24,3 +24,23 @@ Google Analytics 网站分析工具
 
 
 select poll 轮询
+
+QPS query per second
+
+#TODO
+blstm
+attenlstm  是对广告，是对点击历史
+
+
+python高级进阶
+ scrapy 
+ flask
+
+tensorflow进阶
+bert
+文本分类， word2vec 分层softmax ngram
+tfserving
+
+hash idmb5 
+
+
