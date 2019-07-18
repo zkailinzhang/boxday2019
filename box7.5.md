@@ -71,7 +71,7 @@ vim
 第一行 :0 :1 g
 最后一行 :$  G
 跳转行   :n
-
+显示文件名字 :f
 
 rm update-model-1/model/ckpt_-[0-9]500*
 
@@ -161,7 +161,7 @@ zhangkailindeMacBook-Pro:~ zhangkailin$ ssh zhangkl@106.75.22.248
 zhangkl@10-10-123-101:~$ ssh zhangkl@10.9.24.174 zkl123
 zhangkl@10-9-24-174:~$
 
-
+#服务器上多用户，python安装的库，只安装到本用户上，其他用户不影响
  pip3 install --user -r requirements.txt 
 
 # Mac使用快捷键
