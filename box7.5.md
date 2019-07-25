@@ -1,3 +1,30 @@
+#2019.7.24
+测试集每天都在下降，感觉是过拟合了，   过拟合 训练精度一直降，测试精度反而由下降转上升了，
+训练集上不好：新的激活函数，自适应学习率
+测试集不好： 早听，正则  dropout
+
+学习率 指数衰减
+初始化 凯明初始化，高斯初始化
+
+tensorboard --logdir=run1:"/home/.../summary",run2:"/home/.../summary" 
+
+
+BN层，
+定长不定长
+、
+要赶紧掌握的项目
+zklcode/dien 数据是amazon
+zklcode/DSIN 数据是阿里的 
+
+
+eval函数就是实现list、dict、tuple与str之间的转化
+str函数把list，dict，tuple转为为字符串
+
+
+tf.train.exponential_decay 在测试时怎么标识啊
+decayed_lr = lr* dacay_rate^(global_step/decay_steps)
+
+
 2019-06-21,0.04038206225106948,0.5065926439972241,0.07480146870463668,0.005485298,0.9765625
 
 本地断上传所有代码，常规即可，，，服务器只更新代码文件，数据 日志保留 git pull 即可
@@ -514,3 +541,88 @@ ctrl+shift+tab 反向切换
 
 python 再后台运行的文件， 再去修改源代码，应该对之前一直运行的没有影响
 因为python程序运行前，会自动编译python字节码，再内存里运行
+
+
+
+双向LSTM 
+for n in range(num_layers):
+        cell_fw = cell_forw[n]
+        cell_bw = cell_back[n]
+
+        state_fw = cell_fw.zero_state(batch_size, tf.float32)
+        state_bw = cell_bw.zero_state(batch_size, tf.float32)
+
+        (output_fw, output_bw), last_state = tf.nn.bidirectional_dynamic_rnn(cell_fw, cell_bw, output,
+                                                                             initial_state_fw=state_fw,
+                                                                             initial_state_bw=state_bw,
+                                                                             scope='BLSTM_'+ str(n),
+                                                                             dtype=tf.float32)
+
+        output = tf.concat([output_fw, output_bw], axis=2)
+
+
+
+pandas sample函数，采样函数
+sample(frac=0.2, random_state=1024)   设置random_state 下次你在运行时，会拿同样的部分数据
+
+
+pandas 读取大体积的csv
+
+
+Flume：日志数据收集
+Kafka： 实时日志数据处理队列
+HDFS： 分布式存储数据
+Spark SQL： 离线处理
+Spark ML/MLlib：模型训练
+Redis： 缓存(数据集非常大使用HBase)
+
+
+
+tgt = []                                                                                                                                        
+
+In [27]: tgt.append([1,0])                                                                                                                               
+
+In [28]: tgt                                                                                                                                             
+Out[28]: [[1, 0]]
+
+In [29]: tgt.append([0,1])                                                                                                                               
+
+In [30]: tgt                                                                                                                                             
+Out[30]: [[1, 0], [0, 1]]
+In [45]: tgt.append([1,0])                                                                                                                               
+
+In [46]: tgt                                                                                                                                             
+Out[46]: [[1, 0], [0, 1], [1, 0]]
+In [52]: tgt                                                                                                                                             
+Out[52]: [[1, 0], [0, 1], [1, 0]]
+
+In [53]: tgt[:][1]                                                                                                                                       
+Out[53]: [0, 1]
+
+In [54]: tgt[:][0]                                                                                                                                       
+Out[54]: [1, 0]
+
+In [55]: tg = np.array(tgt)                                                                                                                              
+
+In [56]: tg                                                                                                                                              
+Out[56]: 
+array([[1, 0],
+       [0, 1],
+       [1, 0]])
+
+In [57]: tg[:][1]                                                                                                                                        
+Out[57]: array([0, 1])
+
+In [58]: tg[:][:]                                                                                                                                        
+Out[58]: 
+array([[1, 0],
+       [0, 1],
+       [1, 0]])
+
+In [59]: tg[:,1]                                                                                                                                         
+Out[59]: array([0, 1, 0])
+
+
+
+df = pd.DataFrame(np.arange(12).reshape(3,4),
+                          columns=['A', 'B', 'C', 'D'])
