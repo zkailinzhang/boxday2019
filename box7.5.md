@@ -1,3 +1,9 @@
+在ipython中执行 python文件
+In [103]: %run ~/zklcode/knowbox/grid.py
+
+随机的选择、固定间隔值或手动选择。三者分别称为随机搜索、网格搜索和手动搜索
+贝叶斯优化也可以用来调整超参数。其中，用高斯过程定义了一个采集函数。高斯过程使用一组先前评估的参数和得出的精度来假定未观察到的参数。采集函数使用这一信息来推测下一组参数
+
 #2019.7.24
 测试集每天都在下降，感觉是过拟合了，   过拟合 训练精度一直降，测试精度反而由下降转上升了，
 训练集上不好：新的激活函数，自适应学习率
@@ -8,6 +14,9 @@
 
 tensorboard --logdir=run1:"/home/.../summary",run2:"/home/.../summary" 
 
+样本不平衡，smote
+负样本不够，随机采样
+正样本不够，过采样， 权重
 
 BN层，
 定长不定长
@@ -60,6 +69,10 @@ nohup python -u myscript.py params1 > nohup.out 2>&1 &
 nohup python3 -u update_model_2.cp.py > test_metric8.log 2>&1 &
 /usr/bin/python3 -u xx.py  >> out.log 2>&1
 
+nohup sh **.sh > /dev/null 2>&1 &
+
+& ： 指在后台运行
+nohup ： 不挂断的运行，注意并没有后台运行的功能  no hang up 的缩写，就是不挂断
 
 cpu_config = tf.ConfigProto(intra_op_parallelism_threads = 8, inter_op_parallelism_threads = 8, device_count = {'CPU': 8})
 with tf.Session(config = cpu_config) as sess:
@@ -99,6 +112,16 @@ vim
 最后一行 :$  G
 跳转行   :n
 显示文件名字 :f
+vim撤销操作：u
+vim恢复操作：ctrl+r
+复制： yy  nyy
+粘贴 p
+删除 dd ndd
+替换：
+- :{作用范围}s/{目标}/{替换}/{替换标志}
+- 例 :%s/foo/bar/g 会在全局范围(%)查找foo并替换为bar，所有出现都会被替换（g）
+
+显示行号： set nu
 
 rm update-model-1/model/ckpt_-[0-9]500*
 
@@ -203,7 +226,7 @@ vscode
 终端不同窗口切换  command + 1,2,3  
 
 保存 复制 赞贴 command+ s c v
-
+文件剪贴 ：你只需选中目标文件，然后使用Command+C复制，然后用Command +Option+V将其移动到目标目录。
 
 ADID  ABID  区分banner  ABtest
 
@@ -322,7 +345,7 @@ hbase  flask mahout
 账号：
 Kael 135 !zkl2205309
 邮箱 zhangkl@knowbox.cn Zkl22
-Wiki xconflunce 135  zkl22!
+Wiki xconflunce zhangkl  zkl22
 Mac: zkl123
 secureCRT 123
 
@@ -575,7 +598,7 @@ HDFS： 分布式存储数据
 Spark SQL： 离线处理
 Spark ML/MLlib：模型训练
 Redis： 缓存(数据集非常大使用HBase)
-
+flink 
 
 
 tgt = []                                                                                                                                        
@@ -626,3 +649,207 @@ Out[59]: array([0, 1, 0])
 
 df = pd.DataFrame(np.arange(12).reshape(3,4),
                           columns=['A', 'B', 'C', 'D'])
+
+
+is_training = True
+is_training = tf.cast(True, tf.bool)
+不要添加shape参数
+self.is_training_mode= tf.placeholder(tf.bool,name='is_training_mode')
+尽量用 tf.float32，不用tf.float64
+
+rand_array = np.random.rand(1024, 1024)
+    print(sess.run(y, feed_dict={x: rand_array}))
+
+两种，
+tf.nn.dropout(keep4)     keep=0.5  keep =1.0 
+dnn2 = tf.layers.dropout(dnn2, rate=0.5, training=self.is_training_mode)  false true
+
+
+学习率指数衰减
+步骤：1.首先使用较大学习率(目的：为快速得到一个比较优的解);
+2.然后通过迭代逐步减小学习率(目的：为使模型在训练后期更加稳定);
+decayed_learning_rate=learining_rate*decay_rate^(global_step/decay_steps)
+0.1*0.99^(variable/100)    每decay_steps *0.99
+staircase=False 阶梯 贴着指数 
+staircase=True 指数
+
+通常初始学习率，衰减系数，衰减速度的设定具有主观性(即经验设置)，而损失函数下降的速度与迭代结束之后损失的大小没有必然联系，
+
+所以神经网络的效果不能单一的通过前几轮损失函数的下降速度来比较
+只要sess.run(train_step)   global_step自动增加
+train_step=tf.train.GradientDescentOptimizer(lr).minimize(loss,global_step=global_step)
+
+
+
+
+python中标准错误（std.err）和标准输出(std.out)的输出规则（标准输出默认需要缓存后再输出到屏幕，而标准错误则直接打印到屏幕）
+sys.stdout.write("stdout1")
+
+sys.stderr.write("stderr1")
+
+#tf高级操作api
+tf.train.batch
+tf线程协调器生成并读取 batch数据
+tf.train.start_queue_runners
+
+tensorflow中协调器 tf.train.Coordinator 和入队线程启动器 tf.train.start_queue_runners
+tf.app.flags
+tf.app.run
+
+
+random.seed(1234)
+np.random.seed(1234)
+tf.set_random_seed(1234)
+
+# parse two
+FLAGS = tf.app.flags.FLAGS
+tf.app.flags.DEFINE_string("xx",xx,"xx")
+FLAGS.xx
+
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument(
+FLAGS = parser.parse_args(
+
+
+
+
+joblib 多个模型
+
+
+tf.train.Supervisor可以简化编程,避免显示地实现restore操作  
+tf.train.exponential_decay( ) & tf.train.piecewise_constant( )  区间
+
+
+python try except finally
+异常的传递
+
+
+基类也有 继承类也有 怎么调用，python中，继承类 调用基类的函数
+
+继承类（子类） 有一函数继承 基类函数， 
+子类调用函数，父类
+
+父类
+函数a
+函数b 调用函数a
+
+子类 函数a 复写 
+
+子类实例化后，调用函数b，子类内复写的函数a 会被调用吗
+
+如果父类构造函数中调用了已被子类重写的方法，则会进入子类重写的方法体内执行，如果该方法体中有引用子类的成员变量，由于子类成员还未初始化，所以会取其数据类型的默认值，
+
+getattr(self,a)  self.a  类对象的属性
+
+
+os.listdir 返回是无序的
+os.walk 有文件夹和文件
+
+
+a = np.array([2,4,6,8,10])
+In [135]: np.where(a>4)                                                                                                               
+Out[135]: (array([3, 4]),)
+
+In [136]: np.where(a>4)[0]                                                                                                            
+Out[136]: array([3, 4])
+In [138]: a[np.where(a>4)]                                                                                                  
+Out[138]: array([5, 5])
+
+In [139]: a[np.where(a>4)].tolist()                                                                                                   
+Out[139]: [5, 5]
+
+
+
+builder = tf.saved_model.builder.SavedModelBuilder  
+
+tensorflow:INFO:No assets to save.
+ tensorflow:INFO:No assets to write.
+ tensorflow:INFO:SavedModel written to: /home/zhangkl/zhangkailin/midas/Midas_Engine/update-model-1/model0.8/serving/17/saved_model.pb
+
+
+区别
+ from rnn import dynamic_rnn
+#from tensorflow.python.ops.rnn import dynamic_rnn
+from tensorflow.python.ops.rnn_cell import GRUCell
+
+
+
+din_fcn_attention
+din_attention  区别
+
+
+
+
+In [152]: data = []                                                                                                                   
+
+In [153]: da = {"a":1,"b":-1,"c":4}                                                                                                   
+
+In [154]: da2 = {"a":1,"b":-1,"c":3}                                                                                                  
+
+In [155]: da1 = {"a":0,"b":-1,"c":3}                                                                                                  
+
+In [156]: data.append(da)                                                                                                             
+
+In [157]: data.append(da1)                                                                                                            
+
+In [158]: data.append(da2)                                                                                                            
+
+In [159]:                                                                                                                             
+
+In [159]:                                                                                                                             
+
+In [159]: data                                                                                                                        
+Out[159]: 
+[{'a': 1, 'b': -1, 'c': 4},
+ {'a': 0, 'b': -1, 'c': 3},
+ {'a': 1, 'b': -1, 'c': 3}]
+
+In [160]: item  =  pd.DataFrame.from_dict(data)                                                                                       
+
+In [161]: item                                                                                                                        
+Out[161]: 
+   a  b  c
+0  1 -1  4
+1  0 -1  3
+2  1 -1  3
+
+In [162]: data2 =[]                                                                                                                   
+
+In [163]: data2.append(da)                                                                                                            
+
+In [164]: data2                                                                                                                       
+Out[164]: [{'a': 1, 'b': -1, 'c': 4}]
+
+In [165]: item2  =  pd.DataFrame.from_dict(data2)                                                                                     
+
+In [166]: item2                                                                                                                       
+Out[166]: 
+   a  b  c
+0  1 -1  4
+
+In [167]:                                                                                                                             
+
+python 
+logging.info  logging.debug  怎么捕获bug信息啊，在异常那里， logging.debug吗，不是自动捕获的 
+
+想知道错误什么时候出的，在哪里报错额
+
+捕获异常那里 ，loggging.只能用debug error  不用info  ， info不打印
+
+except Exception as e:
+                    print(e)
+                    logging.info("error in test ")
+                    logging.debug("error in test {}".format(e))
+                    logging.debug(sys.exc_info())
+
+                    logging.error("cx",exc_info = True)
+                    logging.except("xxx")
+
+
+
+In [122]: from tensorflow.python.ops.rnn_cell import GRUCell                             
+In [123]: GRUCell                                                                            
+Out[123]: tensorflow.python.ops.rnn_cell_impl.GRUCell
+In [124]: tf.nn.rnn_cell.GRUCell                                                              
+Out[124]: tensorflow.python.ops.rnn_cell_impl.GRUCell
