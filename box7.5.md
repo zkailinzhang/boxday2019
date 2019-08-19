@@ -845,6 +845,16 @@ except Exception as e:
 
                     logging.error("cx",exc_info = True)
                     logging.except("xxx")
+import traceback
+logging.debug("error in train {}".format(e))
+                    logging.debug("train iiter{}\n,error {}".format(iiter,e))
+                    logging.debug(sys.exc_info())
+                    logging.debug("ss {},xx,{}".format(sys._getframe().f_lineno,traceback.format_exc()))
+                    logging.debug()
+
+这个很重要，可以打印出 哪一个函数=哪一行 报错
+import traceback
+logging.debug("execept e :{}".format(traceback.format_exc())
 
 
 
@@ -853,3 +863,151 @@ In [123]: GRUCell
 Out[123]: tensorflow.python.ops.rnn_cell_impl.GRUCell
 In [124]: tf.nn.rnn_cell.GRUCell                                                              
 Out[124]: tensorflow.python.ops.rnn_cell_impl.GRUCell
+
+
+
+#log  #屏蔽tf的INFO, WARING, ERROR信息
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+os.path.exists(“ /data//12.* ”)  *怎么不起作用
+os.system(“rm /data/12.*”) 这个起作用
+
+
+eval() 函数，可以把list,tuple,dict和string相互转化。
+
+
+r 只能读
+r+ 可读可写 不会创建不存在的文件 从顶部开始写 会覆盖之前此位置的内容
+w+ 可读可写 如果文件存在 则覆盖整个文件 不存在则创建
+w 只能写 覆盖整个文件 不存在则创建
+a 只能写 从文件底部添加内容 不存在则创建
+a+ 可读可写 从文件顶部读取内容 从文件底部添加内容 不存在则创建
+
+注意 
+r+可读可写，不会创建不存在的文件。如果直接写文件，则从顶部开始写，覆盖之前此位置的内容，如果先读后写，则会在文件最后追加内容。
+
+
+
+In [48]: len([''])==0                                                                                                                                                  
+Out[48]: False
+
+In [49]: len([''])==1                                                                                                                                                  
+Out[49]: True
+
+In [50]: cc =['']                                                                                                                                                      
+
+In [51]: cc                                                                                                                                                            
+Out[51]: ['']
+
+In [52]: cc ==['']                                                                                                                                                     
+Out[52]: True
+
+In [53]: '' == None                                                                                                                                                    
+Out[53]: False
+
+In [54]: '' != None                                                                                                                                                    
+Out[54]: True
+
+
+
+In [87]:  
+    ...: data = {'BoolCol': [1, 2, 3, 3, 4], 
+    ...:         'attr': [22, 33, 22, 44, 66], 
+    ...:         'BoolC': [1, 2, 3, 3, 4], 
+    ...:         'att': [22, 33, 22, 44, 66], 
+    ...:         'Bool': [1, 2, 3, 3, 4] 
+    ...:         }                                                                                                                                                     
+
+In [88]: data                                                                                                                                                          
+Out[88]: 
+{'BoolCol': [1, 2, 3, 3, 4],
+ 'attr': [22, 33, 22, 44, 66],
+ 'BoolC': [1, 2, 3, 3, 4],
+ 'att': [22, 33, 22, 44, 66],
+ 'Bool': [1, 2, 3, 3, 4]}
+
+In [89]: df = pd.DataFrame(data)                                                                                                                                       
+
+In [90]: df                                                                                                                                                            
+Out[90]: 
+   BoolCol  attr  BoolC  att  Bool
+0        1    22      1   22     1
+1        2    33      2   33     2
+2        3    22      3   22     3
+3        3    44      3   44     3
+4        4    66      4   66     4
+
+In [91]: df["xxx"] = [2,23,4,5,3]                                                                                                                                      
+
+In [92]: df                                                                                                                                                            
+Out[92]: 
+   BoolCol  attr  BoolC  att  Bool  xxx
+0        1    22      1   22     1    2
+1        2    33      2   33     2   23
+2        3    22      3   22     3    4
+3        3    44      3   44     3    5
+4        4    66      4   66     4    3
+
+In [93]: df["xxxx"] = df["att"]+ df["Bool"]                                                                                                                            
+
+In [94]: df                                                                                                                                                            
+Out[94]: 
+   BoolCol  attr  BoolC  att  Bool  xxx  xxxx
+0        1    22      1   22     1    2    23
+1        2    33      2   33     2   23    35
+2        3    22      3   22     3    4    25
+3        3    44      3   44     3    5    47
+4        4    66      4   66     4    3    70
+
+In [95]: df["xxxxx"]=[[1,2,3],[2,3,4],[1,2,3],[2,3,4],[1,3,4]]                                                                                                         
+
+In [96]: df                                                                                                                                                            
+Out[96]: 
+   BoolCol  attr  BoolC  att  Bool  xxx  xxxx      xxxxx
+0        1    22      1   22     1    2    23  [1, 2, 3]
+1        2    33      2   33     2   23    35  [2, 3, 4]
+2        3    22      3   22     3    4    25  [1, 2, 3]
+3        3    44      3   44     3    5    47  [2, 3, 4]
+4        4    66      4   66     4    3    70  [1, 3, 4]
+
+In [97]:                                                                                                                                                               
+
+
+np.asarray
+np.array
+np.ndarray
+
+
+
+二维list 但不等长， 转为array 以下问题
+ValueError: setting an array element with a sequence
+[[8, 8, 3, 3, 5, 4, 5, 8, 18, 3],
+ [3, 4, 7, 6, 3, 2, 2, 7, 7, 10],
+ [3, 4, 7, 6, 3, 2],
+ [7, 10, 3, 3, 4],
+ [7, 10, 3, 3, 4, 3, 8, 7, 2, 3]]
+
+In [58]: np.array(xxx)                                                                                                                                                 
+Out[58]: 
+array([list([4, 7, 8, 6, 5, 15]),
+       list([8, 6, 5, 15, 15, 15, 15, 15, 11, 11]),
+       list([11, 11, 11, 18, 11, 11, 16, 7, 3, 2]),
+       list([11, 11, 11, 18, 11, 11, 16, 7, 3, 2]),
+       list([11, 11, 11, 18, 11, 11, 16, 7, 3, 2]),
+
+等长的
+[10, 3, 5, 9, 8, 3, 7, 2, 2, 3],
+ [7, 2, 7, 10, 10, 10, 7, 3, 3, 3],
+ [8, 3, 7, 3, 7, 10, 3, 3, 4, 8],
+ [3, 6, 7, 3, 7, 2, 7, 7, 7, 10]]
+
+In [4]: np.array(mmm)                                                                                                                                                  
+Out[4]: 
+array([[ 3, 18,  7, ...,  2,  2, 18],
+       [ 3, 18,  7, ...,  2,  2, 18],
+       [25,  3,  5, ...,  8,  6, 17],
+
+
+
+print(self.ad_img_eb_sum.get_shape().as_list())
+tf.shape()
