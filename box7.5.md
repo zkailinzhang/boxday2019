@@ -215,6 +215,8 @@ zhangkl@10-9-24-174:~$
  pip3 install --user -r requirements.txt 
 
 # Mac使用快捷键
+mac的终端可以使用 open .打开文件夹
+code .  vscode 
 网页刷新 command+r
 control+command+q  锁屏
 重命名 return 
@@ -1011,3 +1013,59 @@ array([[ 3, 18,  7, ...,  2,  2, 18],
 
 print(self.ad_img_eb_sum.get_shape().as_list())
 tf.shape()
+
+
+
+三维矩阵相乘，发生在后两维   B*A*C  B*C*D  -> B*A*D
+
+
+tf.layers.dense  输出的维度大小，改变inputs的最后一维
+
+
+
+tf.train.Supervisor 
+tf.train.MonitoredTrainingSessiong()
+
+a = tf.convert_to_tensor(np.random.random([2, 4, 5]), dtype=tf.float32)
+
+1、tf.where(tensor)
+
+tensor 为一个bool 型张量，where函数将返回其中为true的元素的索引。如上图官方注释
+
+2、tf.where(tensor,a,b)
+
+a,b为和ｔｅｎｓｏｒ相同维度的ｔｅｎｓｏｒ，将ｔｅｎｓｏｒ中的ｔｒｕｅ位置元素替换为ａ中对应位置元素，ｆａｌｓｅ的替换为ｂ中对应位置元素
+
+#突然发现keras 好强大 api各种功能 也简单  两三行代码  但需要深究
+keras  model.sunmmary  
+打印模型结构 保存图片
+from keras.utils import plot_model
+
+plot_model(model,to_file='model_auth.png',show_shapes=True)
+报错  pydot没安装，试了几次  还是不行
+
+keras TimeDistributed  layer
+TimeDistributed在mask-rcnn的用法在于：对FPN网络输出的多层卷积特征进行共享参数。因此，个人认为TimeDistributed的真正意义在于使不同层的特征图共享权重
+
+
+
+
+X = tf.random_normal(shape=[3,5,6], dtype=tf.float32)#3为batch的size,5为时间步长，6为每个时间步的尺寸
+X = tf.reshape(X, [-1, 5, 6])
+rnn_layers =[tf.nn.rnn_cell.BasicRNNCell(size,reuse=True) for size in [128, 256]]#分别为每层RNN的神经元个数
+multi_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(rnn_layers)
+state = multi_rnn_cell.zero_state(3, tf.float32)
+output, state = tf.nn.dynamic_rnn(multi_rnn_cell, X, initial_state=state, time_major=False)
+
+
+
+# bigint 和 time 互转
+In [307]: time.localtime(1494032110)                                                                                                               
+Out[307]: time.struct_time(tm_year=2017, tm_mon=5, tm_mday=6, tm_hour=8, tm_min=55, tm_sec=10, tm_wday=5, tm_yday=126, tm_isdst=0)
+
+In [311]: int(time.mktime(time.strptime("2017-05-06 08:55:10","%Y-%m-%d %H:%M:%S")))                                                               
+Out[311]: 1494032110
+
+from itertools import chain
+In [342]: list(chain(*list([[1,2],[3,4],[5,6]])))                                                                                      
+Out[342]: [1, 2, 3, 4, 5, 6]
