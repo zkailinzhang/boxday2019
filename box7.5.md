@@ -213,6 +213,8 @@ zhangkl@10-9-24-174:~$
 
 #服务器上多用户，python安装的库，只安装到本用户上，其他用户不影响
  pip3 install --user -r requirements.txt 
+pip3 install --user tensorflow==1.14.0
+~/.local/lib/python3.5/site-packages/deepctr/layers
 
 # Mac使用快捷键
 mac的终端可以使用 open .打开文件夹
