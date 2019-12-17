@@ -36,6 +36,20 @@ decayed_lr = lr* dacay_rate^(global_step/decay_steps)
 
 2019-06-21,0.04038206225106948,0.5065926439972241,0.07480146870463668,0.005485298,0.9765625
 
+首先
+supervisord -c  /etc/sss.
+后续
+supervisorctl -c  /etc/sss.  restatrt all
+>  update   stop  remove  
+supervisorctl status        //查看所有进程的状态
+supervisorctl stop es       //停止es
+supervisorctl start es      //启动es
+supervisorctl restart       //重启es
+supervisorctl update        //配置文件修改后使用该命令加载新的配置
+supervisorctl reload        //重新启动配置中的所有程序
+
+
+
 本地断上传所有代码，常规即可，，，服务器只更新代码文件，数据 日志保留 git pull 即可
 #本地主分支，本地分支  远程分支 远程主分支
 git checkout -b test 新建分支
@@ -63,6 +77,8 @@ git fetch
 git pull https://gitee.com/zhangkailin/din_demo.git test:master
 
 
+git remote -v  本地显示远程仓库地址 
+
 python3 update_model_2.cp.py 2>&1 | tee test_metric2.log
 nohup python -u myscript.py params1 > nohup.out 2>&1 & 
 
@@ -73,6 +89,12 @@ nohup sh **.sh > /dev/null 2>&1 &
 
 & ： 指在后台运行
 nohup ： 不挂断的运行，注意并没有后台运行的功能  no hang up 的缩写，就是不挂断
+
+关闭
+
+ps -ef | grep zhangkl
+ps -ef | grep update_model_2.cp.py
+kill -9 pid
 
 cpu_config = tf.ConfigProto(intra_op_parallelism_threads = 8, inter_op_parallelism_threads = 8, device_count = {'CPU': 8})
 with tf.Session(config = cpu_config) as sess:
@@ -99,6 +121,12 @@ run_config = tf.estimator.RunConfig(save_checkpoints_secs=1e9,keep_checkpoint_ma
 
 
 find ./ -name '*.log'  | xargs grep 'ResourceExhaustedError'
+
+查看文件和文件夹大小：
+du –sh dirname
+如果查看某个目录下所有文件及文件的大小：
+du –sh *
+按照文件大小排序 du –sh * |sort –n
 
 df -h
 du -h --max-depth=1
@@ -215,6 +243,40 @@ zhangkl@10-9-24-174:~$
  pip3 install --user -r requirements.txt 
 pip3 install --user tensorflow==1.14.0
 ~/.local/lib/python3.5/site-packages/deepctr/layers
+
+madis
+把服务器上的hbase服务接口映射到 本地
+ssh -N -L 7777:10.19.160.33:8001 lill@106.75.22.248
+ssh -N -L 7777:10.19.160.33:8001 zhangkl@106.75.22.248  跳转机
+
+
+作业推荐 上线部署 
+两台电脑 备份 
+10.19.117.187
+10.19.128.25
+ubuntu
+root!@#.com
+
+
+zhangkl@10-10-123-101:~$ ssh ubuntu@10.19.66.30
+ubuntu@10.19.66.30's password: root!@#.com
+
+ubuntu@10-19-66-30:cd  /data/turing/turing
+ubuntu@10-19-66-30:/data/turing/turing$ scp -r zhangkl@10.9.24.174:/data/zhangkl/turing_new/save_sum_26/serving/102 9
+ubuntu@10-19-66-30:/data/turing/turing$ ls
+6  7  9
+
+turing
+mysql 作业推荐
+ssh -N -L 7777:10.9.98.136:3306 zhangkl@106.75.22.248   
+10.9.98.136:3306  便是 mysql connect的 host 和port
+然后在本机需要，吧mysql connect的 host 和port 改为 127.0.0.1  7777即可ok
+
+-L listen-port:host:port 
+指派本地的 port 到达端机器地址上的 port。 
+-N:
+do not execute a remote command;
+
 
 # Mac使用快捷键
 mac的终端可以使用 open .打开文件夹
@@ -1071,3 +1133,10 @@ Out[311]: 1494032110
 from itertools import chain
 In [342]: list(chain(*list([[1,2],[3,4],[5,6]])))                                                                                      
 Out[342]: [1, 2, 3, 4, 5, 6]
+
+
+
+tf.one_hot   索引-1  是全0，不报错 ， 索引0 是 1000，
+tf.embdedding_lookup  索引-1，报错， 索引0  对应第一行
+
+全零的话 ，

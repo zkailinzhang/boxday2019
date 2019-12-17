@@ -1,6 +1,70 @@
 BiLSTM 序列标注
 BiLSTM+ CRF  NER 命名实体识别 log
 
+https://github.com/jantic/DeOldify 上色
+
+https://github.com/chineseGLUE/chineseGLUE
+https://github.com/huggingface/transformers
+
+BERT, GPT-2, RoBERTa, XLM, DistilBert, XLNet, CTRL..
+
+
+https://github.com/huggingface/pytorch-pretrained-BERT
+
+Huggingface近日发布了一个新版本的NLP预训练变压器模型开源库：PyTorch-Transformers 1.0。该开源库包含了一下体系结构: 谷歌的BERT，OpenAI的GPT和GPT-2，谷歌以及CMU的Transformer-XL和XLNet，以及Facebook的XLM。这些架构共有27个预训练模型权重
+
+bpe bytes-pair-encoding   解决未登陆词，  训练 #UNK  ，测试
+zero-shot 是在下游任务 微调时，
+zero-shot domain transfer
+
+
+openai
+任何智力任务的能力，并具有“广泛分布
+Gym(用于测试和比较通过反复试验来实现目标的强化学习算法的工具包)和Neural MMO(可以极大地削弱其性能的“多主体”虚拟培训基地)像RPG一样的世界中间的特工。最近的其他公共工作包括CoinRun，它测试强化学习代理的适应性。Spinning Up，一个旨在教任何人深度学习的程序;稀疏变压器，可以预测冗长的文本，图像和音频序列中的下一个内容;和MuseNet，可以使用10种不同乐器在各种流派和风格下生成新颖的四分钟歌曲
+Gym 和 Unverse
+
+
+用增强学习实验环境 I (MuJoCo, OpenAI Gym, rllab, DeepMind Lab, TORCS, PySC2)
+
+伯克利、斯坦福、CMU、OpenAI、Deepmind、Google X
+
+'GPT2-Chinese - 中文的GPT2模型训练代码，基于Pytorch-Transformers，可以写诗，写新闻，写小说，或是训练通用语言模型等
+
+
+“深度模仿文字制造”（deepfakes for text)
+
+虽然GPT-2经常会产生令人信服的文字，往往给人一种很智能的感觉。然而，如果系统运行的时间足够长，那么它的局限性就会变得很明显。例如：在一个故事中始终如一地使用角色的名字和属性，或者在一篇新闻文章中坚持一个主题
+尤其是其面临长期一致性的挑战。例如，在故事中始终如一地使用同样的人名或坚持某个角色独有的个性。
+
+连贯的文本
+该模型不仅可以根据给定的文本流畅地续写句子，甚至可以形成成篇的文章，写作水平堪比人类，被外界成为新一代“编故事”神器。
+除了能用于语言建模，GPT-2在问答、阅读理解、摘要生成、翻译等等任务上也都有非常好的成绩
+
+两个工具 网页正文提取 dragnet
+1https://github.com/codelucas/newspaper
+https://github.com/stanfordnlp/stanfordnlp
+
+
+Megatron 80亿参数  英伟达
+gpt2 脑洞过于天马行空  openai  15亿参数
+
+而ctrl   16亿参数  基于条件的  conditional  transformer language 
+定向化编故事，
+有情节，有逻辑，有细节 有故事性
+命题作为，指哪打哪，  买家评论，站主评论
+
+一模比一模更优秀  这厢
+CTRL在训练过程中，就会学习这些URL的结构和文本之间的关系。在推理过程中，URL可以指定各种功能，包括域，子域，实体，实体关系，乃至日期
+
+ACL、NeurIPS、EMNLP等AI顶会  ICLR
+
+PPLM  a plug and play method for controlled language generation 
+使用预训练好的gpt2 模型，不需要 fine-tuning, 就可以实现 可控的文本生成。 还提供了源代码。
+
+
+狗屁不通的那个  重复性太严重 车轱辘话来回说   叙事性的故事就容易露馅
+
+
 
 阿里的 用到transformer的
 ATRank  推荐 用户建模 self-attention  
@@ -38,7 +102,7 @@ word2vec对词向量的训练有两种方式，一种是CBOW模型，即通过�
 word2vec  训练方式 cbow skipgram
 word2vec 损失函数Hsoftmax
 word2vec 损失函数nce
-word2vec neg
+word2vec neg                        
 rnntext  
 fasttext  ngram
 
@@ -279,3 +343,178 @@ word2vec ->  sense2vec
 如何用字符串替换与结巴分词对中文文本做预处理；
 如何用 tsne 将高维词向量压缩到低维；
 如何可视化压缩到低维的词汇集合；
+
+
+
+
+在skip-gram里面，每个词在作为中心词的时候，实际上是 1个学生 VS K个老师，K个老师（周围词）都会对学生（中心词）进行“专业”的训练，这样学生（中心词）的“能力”（向量结果）相对就会扎实（准确）一些，但是这样肯定会使用更长的时间；
+
+cbow是 1个老师 VS K个学生，K个学生（周围词）都会从老师（中心词）那里学习知识，但是老师（中心词）是一视同仁的，教给大家的一样的知识。至于你学到了多少，还要看下一轮（假如还在窗口内），或者以后的某一轮，你还有机会加入老师的课堂当中（再次出现作为周围词），跟着大家一起学习，然后进步一点。因此相对skip-gram，你的业务能力肯定没有人家强，但是对于整个训练营（训练过程）来说，这样肯定效率高，速度更快。
+
+
+
+
+GPT-2 是使用「transformer 解码器模块」构建的，而 BERT 则是通过「transformer 编码器」模块构建的。我们将在下一节中详述二者的区别，但这里需要指出的是，二者一个很关键的不同之处在于：GPT-2 就像传统的语言模型一样，一次只输出一个单词（token
+这种模型之所以效果好是因为在每个新单词产生后，该单词就被添加在之前生成的单词序列后面，这个序列会成为模型下一步的新输入。这种机制叫做自回归（auto-regression），同时也是令 RNN 模型效果拔群的重要思想。
+GPT-2，以及一些诸如 TransformerXL 和 XLNet 等后续出现的模型，本质上都是自回归模型，而 BERT 则不然。这就是一个权衡的问题了。虽然没有使用自回归机制，但 BERT 获得了结合单词前后的上下文信息的能力，从而取得了更好的效果。XLNet 使用了自回归，并且引入了一种能够同时兼顾前后的上下文信息的方法。
+
+空白单词 <pad>  <eos>
+
+解码器  带掩模的自注意力层
+
+GPT-2 可以处理最长 1024 个单词的序列。每个单词都会和它的前续路径一起「流过」所有的解码器模块。
+
+生成无条件样本
+即生成交互式条件样本
+
+请注意，第二个单词的路径是当前唯一活跃的路径了。GPT-2 的每一层都保留了它们对第一个单词的解释，并且将运用这些信息处理第二个单词（具体将在下面一节对自注意力机制的讲解中详述），GPT-2 不会根据第二个单词重新解释第一个单词
+
+
+这就是自注意力机制所做的工作，它在处理每个单词（将其传入神经网络）之前，融入了模型对于用来解释某个单词的上下文的相关单词的理解。具体做法是，给序列中每一个单词都赋予一个相关度得分，之后对他们的向量表征求和。
+
+混用了「单词」（word）和「词」（token）这两个概念。但事实上，GPT-2 使用字节对编码（Byte Pair Encoding）方式来创建词汇表中的词（token），也就是说词（token）其实通常只是单词的一部分。
+举的例子其实是 GPT-2 在「推断/评价」（inference / evaluation）模式下运行的流程，所以一次只处理一个单词。在训练过程中，模型会在更长的文本序列上进行训练，并且一次处理多个词（token）。训练过程的批处理大小（batch size）也更大（512），而评价时的批处理大小只有 1
+
+
+
+在本文中“words”和“token”是可以互换使用的。但实际上，GPT2在词汇表中创建token是使用的字节对编码（Byte Pair Encoding）。这意味着token通常是words的一部分。
+
+
+我们展示的示例在其推理/评估模式下运行GPT2。这就是为什么它一次只处理一个单词。在训练时，模型将针对较长的文本序列进行训练并一次处理多个tokens。此外，在训练时，模型将处理较大批量（512）并评估使用的批量大小。
+
+
+
+CTRL: A CONDITIONAL TRANSFORMER LANGUAGE MODEL FOR CONTROLLABLE GENERATION
+推荐里的 是 
+Follow The Regularized Leader (FTRL) The
+
+
+
+#12月计划
+换种方式学习，任务导向，先去玩各种任务，再去看代码，再去看各个模型
+gpt-2  写诗 写小说，写作文，生成式对话，qa生成，  可以做nmt吗，感觉都是偏生成的任务
+后续的条件式的生成
+
+bert qa判断，ner，seq tag，文本分类，文本蕴含，句向量 词向量，nmt  感觉都是偏任务的
+
+chatbot 
+nmt
+后续的各种模型，对比，细节，
+eml0 xlnet gpt
+以及传统的
+ word2vec 的改进路线  huffman  层softmax 负样本
+
+
+推荐学习
+在线学习 ftrl
+learn2rank
+强化学习
+那几篇经典论文重读，google的
+以及传统的
+gbdt+lr
+rf
+
+刷题
+
+
+
+
+任务型对话   
+
+IJCNLP 2017（我能说血亏吗）。就是大名鼎鼎的TC-Bot，之前总结的任务型对话中的开源系统就有它。本文使用SL（监督学习）来监督每个模型部件的学习，同时RL（强化学习）做end-to-end的训练。
+
+成功率，平均回报，平均收益
+
+评估
+slu :slot-match-rate
+dpl : task-success-rate
+nlg: bleu
+response seletion: acc
+
+
+任务型机器人核心模块主要包括三部分：
+
+自然语言理解模块 —— Language Understanding  
+领域识别，用户意图识别以及槽位提取三个子模块
+对话管理模块 —— Dialog Management
+自然语言生成模块 —— Natural Language Generation
+hun
+了
+l1 和l2 正则 混合 作为正则项  l1 
+
+特征的每一维度  一个学习率
+
+
+# bert 项项目
+
+是的，cls是一个，sep是大于等于一个。
+
+'[CLS]'必须出现在样本段落的开头，一个段落可以有一句话也可以有多句话，每句话的结尾必须是'[SEP]'。
+
+例如：
+
+['[CLS]', 'this', 'is', 'blue', '[SEP]', 'that', 'is', 'red', '[SEP]']
+"<PAD>", "<UNK>", "<S>", "</S>"
+文本结束符</s> 用以表示句子末尾
+
+@bert 的输出 是什么 后面怎么加 分类器 
+ 熟练   还有 gpt-2 的 有两个网站 熟练
+
+bert 分类 
+input-id
+input_mask
+segment_id 指什么
+
+WordPiece tokenization
+
+gleu 基准
+ BERT模型和ELMo有大不同，在之前的预训练模型（包括word2vec，ELMo等）都会生成词向量，这种类别的预训练模型属于domain transfer。而近一两年提出的ULMFiT，GPT，BERT等都属于模型迁移
+ cased是意味着输入的词会保存其大写（在命名实体识别等项目上需要）
+
+
+ guid = "train-%d" % (i)
+ text_a = tokenization.convert_to_unicode(line[0])
+ label = tokenization.convert_to_unicode(line[1])
+
+ bert 也是很大篇幅 的  unicode   gpt  bpe算呢
+ 停用词（stopword）。称它们为停用词是因为在文本处理过程中如果遇到它们，则立即停止处理，将其扔掉。将这些词扔掉减少了索引量，增加了检索效率，并且通常都会提高检索的效果。停用词主要包括英文字符、数字、数学字符、标点符号及使用频率特高的单汉字等
+
+ bert 字  不是词   wordpieceWordpieceTokenizer
+
+入门基础
+ https://www.cnblogs.com/luchenyao/p/10223209.html 
+
+
+
+ sentence-level (e.g., SST-2), sentence-pair-level (e.g., MultiNLI), word-level (e.g., NER), and span-level (e.g., SQuAD)
+
+ 预训练表示可以是上下文无关的，也可以是上下文相关的，而且，上下文相关的表示可以是单向的或双向的。上下文无关模型例如word2vec或GloVe可以为词表中的每一个词生成一个单独的“词向量”表示，所以“bank”这个词在“bank deposit”（银行）和“river bank”（岸边）的表示是一样的。上下文相关的模型会基于句子中的其他词生成每一个词的表示。
+
+sklearn 的 word2vec bin 怎么加载
+BPE，（byte pair encoder）字节对编码，也可以叫做digram coding双字母组合编码，主要目的是为了数据压缩，算法描述为字符串里频率最常见的一对字符被一个没有在这个字符中出现的字符代替的层层迭代过程
+
+
+vocab.txt  怎么统计
+
+
+模型git上的 训练时 添加的 随机数
+
+layernorm  batchnorm 
+
+gelu  relu  
+
+labelsmoothing
+
+str split() 默认为所有的空字符，包括空格、换行(\n)、制表符(\t)等
+
+get_variable  
+tf.trainable_variables(), tf.all_variables(), tf.global_variables()
+
+
+    with tf.name_scope('gru'),tf.variable_scope("gru", reuse=tf.AUTO_REUSE):
+
+
+1*1 卷积核 
+包括1）跨通道的特征整合2）特征通道的升维和降维  3）减少卷积核参数（简化模型）
+
+1维卷积 2维卷积
