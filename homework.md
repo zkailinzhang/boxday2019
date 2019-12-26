@@ -181,3 +181,8 @@ reflect_value_ph
   self.target_ph_coe =  tf.where(coe_mask2,self.target_ph*coe,self.target_ph)
 
   ctr_loss = - tf.reduce_mean(tf.log(self.y_hat) * self.target_ph_coe)
+
+
+
+  我们可以将每个变量固定在一个大致相同的范围内来加快梯度下降的速率
+  归一化的方法有线性归一化，标准差标准化，非线性归一化

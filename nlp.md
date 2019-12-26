@@ -518,3 +518,197 @@ tf.trainable_variables(), tf.all_variables(), tf.global_variables()
 包括1）跨通道的特征整合2）特征通道的升维和降维  3）减少卷积核参数（简化模型）
 
 1维卷积 2维卷积
+
+
+roi pooling 
+
+faster rcnn 复述
+首先vgg16，然后两个分支，
+一个分支，rpn网络，3*3 256d 256个通道
+1*1 w*h*2k  w*h*4k k=9 
+相对坐标 回归， 有个初始的anchor 坐标，  有尺度系数，直接投到 特征图上，
+然后 首先是分数 初步刷选，，然后nms 得到topN  
+
+损失函数 分类有正样本负样本 回归 正样本，这里类别识别，主要给坐标 提供的， 坐标初训练
+
+然后另一个分支
+roi 和特征图 一起送入 roi pooling，  
+N个候选框 固定， 每个候选框 14*14 这是关键，插值 拟合   14*14的网格盖上去，依宽平分，依高平分
+   再池化 7*7*N 固定向量， 实现不同大小图片 
+   坐标 精调 ，类别再识别
+
+整体训练两轮 即可，精度就不在提升了
+首先vgg预训练权重，训练rpn   
+然后整体 rpn  联调
+在训练rpn
+再整体
+
+
+
+maskrcnn 复述
+一般检测， 网络最后 池化 全连接 cls regloss
+池化 对于小目标不友好， fpn feature p
+
+
+
+
+
+死看 
+py-faster-rcnn
+mask-rcnn
+
+池化 
+rcnn ss svm bbox 回归
+roi pooling 提出于 fast rcnn 但候选生成还是ss
+而    faster rcnn 候选生成 提出rpn网络
+
+roi align  mask rcnn
+
+必备
+物体检测 
+人检测
+换脸，
+舞蹈
+关键点那个人很多
+
+
+
+这三个死看
+Bert 官方源代码  特征提取.py 不是很明白
+bert as service 
+keras4bert 
+
+
+bert 提取 词向量  句向量
+bert ner 
+bert 分类，
+bert 相似性
+fasttext 意图提取 也是分类
+
+序列标注  开始结束  
+
+序列标注貌似这个词是 范围很广的 分词 后处理 
+
+还有个句法分析  词法分析 还没去搜索
+
+
+
+transformer 的多头注意力 就像 多种卷积核
+
+
+bert 更像rcnn  常见的 都能做 分类  分割 识别  监督任务
+
+gpt 更像 gan  主要是 生成的任务   无监督任务
+
+看似
+gpt-chinese 要求  json[ 一段落，一段落]  doupo  正则 检索 所有第几章行，一章 一个段落，     
+transformer-xl-chinese 也是好多生成 小说 文章 古诗，先从这个看吧
+
+
+必备
+中英翻译，文本分类
+生成对话，
+写诗 写文章
+
+但是这样看 nlp的模型结构  远没有 cv的复杂 框架  仅仅transformer 
+
+
+
+
+词性标注 ，pos    
+词性标注（part-of-speech tagging） 动词 名词，单纯选取最高频词性，
+
+可以想象 猫狗识别，标注一部分数据  然后 也能识别  未见过的图片  有猫的 
+标注 也是一样啊 ，标 名词 动词，一部分  然后 去未见过的词  句子 也能正确标识对的啊 
+
+送给bert 若 是word 则 onehot 太多了
+所以 一般 都是 character 字，  常见的 字  大约5000 吧，做onehot 就很容易了，token
+所以 一般 bert gpt 先分词 在喂入
+
+
+
+
+
+improt thulac
+
+THULAC（THU Lexical Analyzer for Chinese）由清华大学自然语言处理与社会人文计算实验室研制推出的一套中文词法分析工具包，具有中文分词和词性标注功能
+
+
+ BertViz 
+
+
+通过查看该模型在实际应用（如拼写检查、机器翻译）中的表现来评价
+ 迷惑度/困惑度/混乱度（preplexity）
+ 迷惑度越小，句子概率越大，语言模型越好。
+
+
+词素 byte pair encoding
+https://github.com/rsennrich/subword-nmt 
+ 如果需要把bpe使用到神经网络中，很简单 使用subword-nmt apply-bpe 对输入语料进行解码得到decode.txt，然后在程序载入subword-nmt生成的字典voc.txt。然后按照机器翻译正常处理语料的套路来做即可：读入decode.txt的每个单词，查找它在voc.txt的字典中的编号。
+————————————————
+https://blog.csdn.net/jmh1996/article/details/89286898
+
+中文有bpe吗
+
+
+
+
+用1*1卷积层代替全连接层的好处：
+1、不改变图像空间结构
+全连接层会破坏图像的空间结构，而1*1卷积层不会破坏图像的空间结构。
+2、输入可以是任意尺寸
+全连接层的输入尺寸是固定的，因为全连接层的参数个数取决于图像大小。而卷积层的输入尺寸是任意的，因为卷积核的参数个数与图像大小无关。
+
+
+
+这一类讨论者主要在研究 GPT-2 的实用性，一些开发者也附上了自己的做的测试模型，感兴趣的读者可以前去体验：
+
+http://textsynth.org/
+
+https://talktotransformer.com/
+
+pip install gpt2
+
+AllenNLP 
+spacy 英语文本处理工具库
+
+Enhanced Representation through Knowledge Integration来看补充更多的先验知识供预训练语言模型学习能够使模型泛化能力更高。ERNIE相当于融入了知识图谱，清华的ERNIE在BERT的MLM以及Next Sentence Prediction任务的基础上增加了denoising entity auto-encoder (dEA)任务，这是自然而然应该想到了，MLM相当于在字上的降噪，增加了实体信息，自然应该在实体层次进行降噪。
+
+cvat视频标注
+
+spacy nlp所有的任务都有 
+spaCy 带有预先训练的统计模型和单词向量，目前支持 34+语言的标记（暂不支持中文）。它具有世界上速度最快的句法分析器，用于标签的卷积神经网络模型，解析和命名实体识别以及与深度学习整合。
+依存分析，[限定词， 形容词修饰, 名词主语， 根节点, 限定词, 形容词修饰, 形容词修饰, 属性, 标点]
+
+名词短语 介词短语
+
+
+albert
+就有对词向量的投射做一个因式分解和对隐层的参数做共享两个方法分别来减少这两个不同模块的参数量。
+他们训练了一个 ALBERT-Tiny 模型。我在谷歌的同事将它转成 tensorflow-lite 之后在手机端上做了一些测试。在 4 线程的 CPU 上的延时是 120 毫秒左右
+
+Transformer中共享参数有多种方案，只共享全连接层，只共享attention层，ALBERT结合了上述两种方案，全连接层与attention层都进行参数共享，也就是说共享encoder内的所有参数
+
+roberta
+动态mask
+
+
+
+pip install pytorch-pretrained-bert
+pytorch-pretrained-bert 内 BERT，GPT，Transformer-XL，GPT-2。
+
+from bert_serving.client import BertClient 
+
+Gaussian error linear units GELU
+
+误差函数，也称高斯误差函数(Error Function or Gauss Error Function)
+
+3) 以往的非线性和随机正则化这两部分基本都是互不相关的，因为辅助非线性变换的那些随机正则化器是与输入无关的。
+
+4) GELU将非线性与随机正则化结合，是Adaptive Dropout的修改
+
+sigmoid -》relu -》 GELU 在cv nlp 语音上都不错
+
+在激活函数领域，大家公式的鄙视链应该是：Elus > Relu > Sigmoid ，这些激活函数都有自身的缺陷， sigmoid容易饱和，Elus与Relu缺乏随机因素
+
+在神经网络的建模过程中，模型很重要的性质就是非线性，同时为了模型泛化能力，需要加入随机正则，例如dropout(随机置一些输出为0,其实也是一种变相的随机非线性激活)， 而随机正则与非线性激活是分开的两个事情， 而其实模型的输入是由非线性激活与随机正则两者共同决定的。

@@ -257,6 +257,11 @@ ssh -N -L 7777:10.19.160.33:8001 zhangkl@106.75.22.248  跳转机
 ubuntu
 root!@#.com
 
+部署
+ubuntu@10.19.117.187:/data/turing/turing
+ubuntu@10.19.128.25:/data/turing/turing
+密码
+root!@#.com
 
 zhangkl@10-10-123-101:~$ ssh ubuntu@10.19.66.30
 ubuntu@10.19.66.30's password: root!@#.com
